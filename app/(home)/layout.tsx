@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Navbar from "./navbar";
 
 interface HomeLayoutProps {
@@ -6,9 +7,14 @@ interface HomeLayoutProps {
 
 export default function HomeLayout({ children }: HomeLayoutProps) {
     return (
-        <>
-            <Navbar />
-            <main className="flex min-h-screen flex-col items-center p-24 bg-rose-200 dark:bg-rose-700 space-y-20">{children}</main>
-        </>
+        <div className="flex flex-col min-h-screen">
+            <header>
+                <Navbar />
+            </header>
+            <main className="flex-1 p-24 bg-rose-100 dark:bg-rose-800 space-y-20">
+                {children}
+            </main>
+            <Footer />
+        </div>
     );
 }

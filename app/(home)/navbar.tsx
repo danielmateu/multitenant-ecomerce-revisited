@@ -47,7 +47,7 @@ export default function Navbar() {
 
 
     return (
-        <nav className="p-4 flex justify-between items-center bg-rose-300 dark:bg-rose-800">
+        <nav className="p-4 flex justify-between items-center bg-rose-200 dark:bg-rose-800">
             <Link href="/" className="pl-6 flex items-center">
                 <span className={cn("text-5xl font-semibold", poppins.className)}>
                     FunRoad
