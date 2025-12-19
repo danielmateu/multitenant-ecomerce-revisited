@@ -1,10 +1,20 @@
-"use client"
+import configPromise from '@payload-config';
 
-export default function Home() {
+import { getPayload } from 'payload';
 
+export default async function Home() {
+  const payload = await getPayload({
+    config: configPromise,
+  });
+
+  const data = await payload.find({
+    collection: 'users',
+  });
 
   return (
-    <h1>Home Page</h1>
+    <h1>
+      {JSON.stringify(data, null, 2)}
+    </h1>
   );
 }
 
