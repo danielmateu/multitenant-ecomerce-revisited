@@ -40,7 +40,7 @@ const navbarItems = [
 ]
 
 export default function Navbar() {
-    const { setTheme } = useTheme()
+    // const { setTheme } = useTheme()
     const pathname = usePathname();
     // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -57,8 +57,8 @@ export default function Navbar() {
             <NavbarSidebar
                 open={isSidebarOpen}
                 onOpenChange={setIsSidebarOpen}
-                items={[]}
-            // items={navbarItems}
+                // items={[]}
+                items={navbarItems.map(item => ({ ...item, children: item.label }))}
             />
 
             <div className="items-center gap-4 hidden lg:flex">
@@ -104,8 +104,10 @@ export default function Navbar() {
             </div>
 
             <div className="flex lg:hidden items-center justify-center">
-                <Button variant={"ghost"} className="size-12 border-transparent bg-white">
-                    <MenuIcon onClick={() => setIsSidebarOpen(true)} />
+                <Button variant={"ghost"} className="size-12 border-transparent bg-white"
+                    onClick={() => setIsSidebarOpen(true)}
+                >
+                    <MenuIcon />
                 </Button>
             </div>
 
