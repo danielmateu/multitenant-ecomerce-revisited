@@ -1,15 +1,11 @@
-import { getPayloadClient } from '@/lib/payload';
 
-export default async function Home() {
-  const payload = await getPayloadClient();
+export default function Home() {
 
-  const data = await payload.find({
-    collection: 'users',
-  });
 
   return (
     <h1>
-      {JSON.stringify(data, null, 2)}
+      {/* {JSON.stringify(data, null, 2)} */}
+      Home
     </h1>
   );
 }
