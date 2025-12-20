@@ -1,11 +1,7 @@
-import configPromise from '@payload-config';
-
-import { getPayload } from 'payload';
+import { getPayloadClient } from '@/lib/payload';
 
 export default async function Home() {
-  const payload = await getPayload({
-    config: configPromise,
-  });
+  const payload = await getPayloadClient();
 
   const data = await payload.find({
     collection: 'users',

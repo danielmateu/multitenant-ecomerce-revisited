@@ -58,7 +58,8 @@ export default function Navbar() {
                 open={isSidebarOpen}
                 onOpenChange={setIsSidebarOpen}
                 // items={[]}
-                items={navbarItems.map(item => ({ ...item, children: item.label }))}
+                items={navbarItems.map(item => ({ ...item, children: item.label, isActive: pathname === item.href }))}
+                // isActive={pathname === '/sign-in'}
             />
 
             <div className="items-center gap-4 hidden lg:flex">
@@ -71,23 +72,6 @@ export default function Navbar() {
                         {item.label}
                     </NavbarItem>
                 ))}
-                {/* <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="themeToggle">
-                            <Sun />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => setTheme("light")}>
-                            <Sun />
-                            Light
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme("dark")}>
-                            <Moon />
-                            Dark
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu> */}
                 <div className="hidden lg:flex">
                     <Button variant={"secondary"} className="border-l border-t-0 border-r-0 px-6 h-full rounded-none bg-white hover:bg-pink-400 transition text-lg w-fit">
                         <Link href="/sign-in">
