@@ -3,6 +3,7 @@ import Navbar from "./navbar";
 import SearchFilters from "./search-filters";
 import { getPayloadClient } from "@/lib/payload";
 import { Category } from "@/payload-types";
+import { CustomCategory } from "./types";
 
 interface HomeLayoutProps {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ export default async function HomeLayout({ children }: HomeLayoutProps) {
 
     const payload = await getPayloadClient();
 
-    const data = await payload.find({
+    const { docs } = await payload.find({
         collection: 'categories',
         depth: 1, // Populate subcategories, subcategories of 0 wil be a type of Category
         where: {
@@ -20,6 +21,7 @@ export default async function HomeLayout({ children }: HomeLayoutProps) {
                 exists: false
             }
         },
+        sort: 'name'
     });
 
     // const formattedData = data.docs.map((category: any) => ({
@@ -27,15 +29,17 @@ export default async function HomeLayout({ children }: HomeLayoutProps) {
     //     subcategories: category.subcategories || []
     // }));
 
-    const formattedData = data.docs.map((doc) => ({
+    const formattedData: CustomCategory[] = docs.map((doc) => ({
         ...doc,
-        subcategories: (doc.subcategories?.docs ?? []).map((doc) => ({
-            ...(doc as Category),
-            subcategories: undefined
-        }))
+        subcategories: (doc.subcategories && typeof doc.subcategories === 'object' && 'docs' in doc.subcategories)
+            ? (doc.subcategories.docs as Category[]).map((sub) => ({
+                ...sub,
+                subcategories: undefined
+            }))
+            : []
     }))
 
-    console.log("Fetched categories data:", data);
+    console.log("Fetched categories docs:", docs);
     console.log("Formatted categories data:", formattedData);
 
     return (
