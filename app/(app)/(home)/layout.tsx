@@ -13,6 +13,8 @@ export default async function HomeLayout({ children }: HomeLayoutProps) {
 
     const payload = await getPayloadClient();
 
+    // console.log("Fetching categories from Payload CMS...", payload);
+
     const { docs } = await payload.find({
         collection: 'categories',
         depth: 1, // Populate subcategories, subcategories of 0 wil be a type of Category
@@ -39,8 +41,8 @@ export default async function HomeLayout({ children }: HomeLayoutProps) {
             : []
     }))
 
-    console.log("Fetched categories docs:", docs);
-    console.log("Formatted categories data:", formattedData);
+    // console.log("Fetched categories docs:", docs);
+    // console.log("Formatted categories data:", formattedData);
 
     return (
         <div className="flex flex-col min-h-screen">

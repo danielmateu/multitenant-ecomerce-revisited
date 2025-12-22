@@ -11,7 +11,7 @@ interface SubcategoryMenuProps {
 
 
 export default function SubcategoryMenu({ category, isOpen, position }: SubcategoryMenuProps) {
-    console.log('Rendering SubcategoryMenu - isOpen:', isOpen, 'position:', position, category);
+    // console.log('Rendering SubcategoryMenu - isOpen:', isOpen, 'position:', position, category);
 
     if (!isOpen || !category?.subcategories || category.subcategories?.length === 0) return null;
 

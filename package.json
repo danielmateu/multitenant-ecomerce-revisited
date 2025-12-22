@@ -13,6 +13,7 @@
     "db:fresh": "bun run scripts/db-fresh.ts"
   },
   "dependencies": {
+    "@formkit/tempo": "^0.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@payloadcms/db-mongodb": "^3.68.5",
     "@payloadcms/next": "^3.68.5",
