@@ -57,9 +57,10 @@ export default function Categories({ data }: CategoriesProps) {
             calculateVisible();
         });
 
-        if (containerRef.current) {
-            resizeOvserver.observe(containerRef.current);
-        }
+        // if (containerRef.current) {
+        //     resizeOvserver.observe(containerRef.current);
+        // }
+        // resizeOvserver.observe(containerRef.current);
 
         return () => resizeOvserver.disconnect();
 
@@ -68,12 +69,17 @@ export default function Categories({ data }: CategoriesProps) {
     return (
         <div className="relative w-full">
             {/* Hidden for measurement */}
-            <div ref={measureRef} className="absolute opacity-0 pointer-events-none flex"
+            <div
+                ref={measureRef}
+                className="absolute opacity-0 pointer-events-none flex"
                 style={{ position: 'fixed', top: -9999, left: -9999 }}>
                 {
                     data.map((category: Category) => (
                         <div key={category.id} className="mb-4">
-                            <CategoryDropdown category={category} isActive={activeCategory === category.slug} isNavigationHovered={false} />
+                            <CategoryDropdown
+                                category={category}
+                                isActive={activeCategory === category.slug}
+                                isNavigationHovered={false} />
                         </div>
                     ))
                 }
@@ -85,16 +91,14 @@ export default function Categories({ data }: CategoriesProps) {
                 onMouseEnter={() => setIsAnyHovered(true)}
                 onMouseLeave={() => setIsAnyHovered(false)}
             >
-                {
-                    data.map((category: Category) => (
-                        <div key={category.id} className="mb-4">
-                            <CategoryDropdown
-                                category={category}
-                                isActive={activeCategory === category.slug}
-                                isNavigationHovered={isAnyHovered} />
-                        </div>
-                    ))
-                }
+                {data.slice(0, visibleCount).map((category: Category) => (
+                    <div key={category.id} className="mb-4">
+                        <CategoryDropdown
+                            category={category}
+                            isActive={activeCategory === category.slug}
+                            isNavigationHovered={isAnyHovered} />
+                    </div>
+                ))}
 
                 <div ref={viewAllRef} className="shrink-0 mb-4">
                     <Button
