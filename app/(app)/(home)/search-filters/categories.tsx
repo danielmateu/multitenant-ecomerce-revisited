@@ -96,7 +96,7 @@ export default function Categories({ data }: CategoriesProps) {
                     ))
                 }
 
-                <div ref={viewAllRef} className="shrink-0">
+                <div ref={viewAllRef} className="shrink-0 mb-4">
                     <Button
                         variant={"elevated"}
                         className={cn("h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
