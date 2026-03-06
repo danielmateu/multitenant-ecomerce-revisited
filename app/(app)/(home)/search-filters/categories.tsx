@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ListFilterIcon } from "lucide-react";
+import CategoriesSidebar from "./categories-sidebar";
 
 interface CategoriesProps {
     data: CustomCategory[];
@@ -60,7 +61,7 @@ export default function Categories({ data }: CategoriesProps) {
         // if (containerRef.current) {
         //     resizeOvserver.observe(containerRef.current);
         // }
-        // resizeOvserver.observe(containerRef.current);
+        resizeOvserver.observe(containerRef.current as HTMLDivElement);
 
         return () => resizeOvserver.disconnect();
 
@@ -68,13 +69,21 @@ export default function Categories({ data }: CategoriesProps) {
 
     return (
         <div className="relative w-full">
+
+            {/* Categories sidebar */}
+            <CategoriesSidebar
+                open={isSidebarOpen}
+                onOpenChange={setIsSidebarOpen}
+                data={data}
+            />
+
             {/* Hidden for measurement */}
             <div
                 ref={measureRef}
                 className="absolute opacity-0 pointer-events-none flex"
                 style={{ position: 'fixed', top: -9999, left: -9999 }}>
                 {
-                    data.map((category: Category) => (
+                    data.map((category: CustomCategory) => (
                         <div key={category.id} className="mb-4">
                             <CategoryDropdown
                                 category={category}
@@ -91,7 +100,7 @@ export default function Categories({ data }: CategoriesProps) {
                 onMouseEnter={() => setIsAnyHovered(true)}
                 onMouseLeave={() => setIsAnyHovered(false)}
             >
-                {data.slice(0, visibleCount).map((category: Category) => (
+                {data.slice(0, visibleCount).map((category: CustomCategory) => (
                     <div key={category.id} className="mb-4">
                         <CategoryDropdown
                             category={category}
@@ -105,9 +114,10 @@ export default function Categories({ data }: CategoriesProps) {
                         variant={"elevated"}
                         className={cn("h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
                             isActiveCategoryHidden && !isAnyHovered && "bg-white border-primary"
-                        )}>
+                        )}
+                        onClick={() => setIsSidebarOpen(true)}>
                         {/* {category.name} */}
-                        Ver todas
+                        View All
                         <ListFilterIcon className="ml-2 inline-block" />
                     </Button>
                 </div>

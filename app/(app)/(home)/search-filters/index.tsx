@@ -10,8 +10,10 @@ interface SearchFiltersProps {
 export default function SearchFilters({ data }: SearchFiltersProps) {
     return (
         <div className="flex flex-col gap-4 w-full px-4 lg:px-12 py-8 border-b">
-            <SearchInput />
-            <Categories data={data} />
+            <SearchInput data={data} />
+            <div className="hidden lg:block">
+                <Categories data={data} />
+            </div>
             {/* {JSON.stringify(data, null, 2)} */}
             {/* <h1>
             </h1> */}

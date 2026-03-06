@@ -7,9 +7,12 @@ import { se } from "date-fns/locale";
 import { useRef, useState } from 'react';
 import { useDropdownPosition } from "./use-dropdown-position";
 import SubcategoryMenu from "./subcategory-menu";
+import Link from "next/link";
+import { CustomCategory } from "../types";
 
 interface CategoryDropdownProps {
-    category: Category;
+    // category: Category;
+    category: CustomCategory;
     isActive?: boolean;
     isNavigationHovered?: boolean;
 }
@@ -31,11 +34,19 @@ export default function CategoryDropdown({ category, isActive, isNavigationHover
 
     const onMouseLeave = () => { setIsOpen(false) }
 
+    // TODO: Improve mobile experience - maybe open the dropdown on click instead of hover, and make it stay open until the user clicks outside or clicks the category again
+    // const toggleDropDown = () => {
+    //     if (category.subcategories?.length) {
+    //         setIsOpen(prev => !prev);
+    //     }
+    // }
+
     return (
         <div className="relative"
             ref={dropdownRef}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+        // onClick={toggleDropDown}
         >
             <div className="relative">
                 <Button
@@ -44,7 +55,12 @@ export default function CategoryDropdown({ category, isActive, isNavigationHover
                         isActive && !isNavigationHovered && "bg-white border-primary",
                         isOpen && "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-1 -translate-y-1"
                     )}>
-                    {category.name}
+                    <Link
+                        // prefetch
+                        href={`/${category.slug === 'all' ? '' : category.slug}`}
+                    >
+                        {category.name}
+                    </Link>
                 </Button>
                 {category.subcategories && category.subcategories.length > 0 && (
                     <div className={cn("opacity-0 absolute -bottom-3 w-0 h-0 border-l-10 border-r-10 border-b-10 border-l-transparent border-t-transparent border-b-black left-1/2 -translate-x-1/2",
