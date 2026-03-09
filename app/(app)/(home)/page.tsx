@@ -1,12 +1,18 @@
+import { getQueryClient, trpc } from "@/trpc/server";
 
-export default function Home() {
+export default async function Home() {
 
+  const queryClient = getQueryClient();
+
+  const categories = await queryClient.fetchQuery(trpc.categories.getMany.queryOptions());
 
   return (
-    <h1>
-      {/* {JSON.stringify(data, null, 2)} */}
-      Home
-    </h1>
+    <>
+      <h1>
+        Home
+      </h1>
+      {JSON.stringify(categories, null, 2)}
+    </>
   );
 }
 

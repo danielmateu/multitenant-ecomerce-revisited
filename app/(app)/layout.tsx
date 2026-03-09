@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { TRPCReactProvider } from "@/trpc/client";
+
 // import { ThemeProvider } from "@/components/theme-provider";
 // import { ThemeProvider } from "@/components/theme-provider";
 
@@ -26,6 +28,11 @@ export default function RootLayout({
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         className={` ${dmSans.className} antialiased`}
       >
+        <TRPCReactProvider>
+          <Toaster />
+          {children}
+
+        </TRPCReactProvider>
         {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -33,8 +40,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
         </ThemeProvider> */}
-        <Toaster />
-        {children}
       </body>
     </html>
   );
